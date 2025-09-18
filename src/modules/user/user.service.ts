@@ -47,6 +47,7 @@ const updateUser = async (id: number, payload: Partial<User>) => {
         },
         data: payload
     })
+    return result;
 }
 
 const deleteUser = async (id: number) => {
@@ -55,6 +56,7 @@ const deleteUser = async (id: number) => {
             id
         }
     })
+    return result;
 }
 
 export const UserService = {

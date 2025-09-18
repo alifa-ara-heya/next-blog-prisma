@@ -11,11 +11,56 @@ const createUser = async (payload: Prisma.UserCreateInput): Promise<User> => {
 }
 
 const getAllFromDB = async () => {
-    const result = await prisma.user.findMany()
+    const result = await prisma.user.findMany({
+        // select: {
+        //     id: true,
+        //     name: true,
+        //     email: true
+        // },
+
+        // sorting
+        orderBy: {
+            createdAt: "desc"
+        },
+        include: {
+            posts: true
+        }
+
+    })
     return result
+}
+
+const getUserById = async (id: number) => {
+    const result = await prisma.user.findUnique({
+        where: {
+            id
+        }
+    })
+
+    return result
+}
+
+const updateUser = async (id: number, payload: Partial<User>) => {
+    const result = await prisma.user.update({
+        where: {
+            id
+        },
+        data: payload
+    })
+}
+
+const deleteUser = async (id: number) => {
+    const result = await prisma.user.delete({
+        where: {
+            id
+        }
+    })
 }
 
 export const UserService = {
     createUser,
-    getAllFromDB
+    getAllFromDB,
+    getUserById,
+    updateUser,
+    deleteUser
 }

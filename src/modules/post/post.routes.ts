@@ -3,6 +3,7 @@ import { PostControllers } from './post.controller';
 
 const router = express.Router();
 
+router.get('/stats', PostControllers.getBlogStat)
 router.get('/', PostControllers.getPosts)
 
 router.post('/', PostControllers.createPost)
